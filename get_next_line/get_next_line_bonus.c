@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edecoste <edecoste@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:29:22 by edecoste          #+#    #+#             */
-/*   Updated: 2022/12/08 11:56:47 by edecoste         ###   ########.fr       */
+/*   Updated: 2022/12/08 11:52:43 by edecoste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-static char	*ft_join_to_buffer(char *buffer, char *read)
+char	*ft_join_to_buffer(char *buffer, char *read)
 {
 	char	*join;
 
@@ -23,7 +23,7 @@ static char	*ft_join_to_buffer(char *buffer, char *read)
 	return (join);
 }
 
-static char	*read_file(int fd, char *buffer, size_t i)
+char	*read_file(int fd, char *buffer, size_t i)
 {
 	char	*content;
 	ssize_t	byte_count;
@@ -50,7 +50,7 @@ static char	*read_file(int fd, char *buffer, size_t i)
 	return (free(content), content = NULL, buffer);
 }
 
-static char	*ft_get_left(char *buffer)
+char	*ft_get_left(char *buffer)
 {
 	char	*line;
 	size_t	i;
@@ -66,7 +66,7 @@ static char	*ft_get_left(char *buffer)
 	return (line);
 }
 
-static char	*ft_get_right(char *buffer)
+char	*ft_get_right(char *buffer)
 {
 	size_t	i;
 	char	*remaining;
@@ -84,24 +84,24 @@ static char	*ft_get_right(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[1024];
 	char		*line;
 
 	if (fd == -1 || BUFFER_SIZE <= 0)
 	{
-		if (buffer)
-			free(buffer);
-		return (buffer = NULL, NULL);
+		if (buffer[fd])
+			free(buffer[fd]);
+		return (buffer[fd] = NULL, NULL);
 	}
-	buffer = read_file(fd, buffer, 0);
-	if (!buffer)
-		return (free(buffer), buffer = NULL, NULL);
-	line = ft_get_left(buffer);
-	buffer = ft_get_right(buffer);
+	buffer[fd] = read_file(fd, buffer[fd], 0);
+	if (!buffer[fd])
+		return (free(buffer[fd]), buffer[fd] = NULL, NULL);
+	line = ft_get_left(buffer[fd]);
+	buffer[fd] = ft_get_right(buffer[fd]);
 	if (!line)
 	{
-		free(buffer);
-		buffer = NULL;
+		free(buffer[fd]);
+		buffer[fd] = NULL;
 	}
 	return (line);
 }
