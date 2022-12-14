@@ -143,7 +143,7 @@ fichier : /bin/monitoring.sh
 wall $'#Architecture:' `uname -a` $'\n'\
 $'#CPU physical:' `lscpu | grep "Cœur(s)" | awk '{print $4}'` $'\n'\
 $'#vCPU:' `lscpu | grep "Thread(s)" | awk '{print $4}'` $'\n'\
-$'#Memory Usage:' `free -m | grep Mem: | awk '{print $3 "/" $2 "MB (" $3/$2*100 "%)"}'` $'\n'\
+$'#Memory Usage:' `free -m | grep Mem: | awk '{printf "%d/%dMB (%.2f%%)", $3, $2, $3/$2*100}'` $'\n'\
 $'#Disk Usage:' `df -h --total | grep total | awk '{print $3 "/" $2 "  (" $5 ")"}'` $'\n'\
 $'#CPU load:' `top -bn1 | sed -n 3p | awk '{print $2 "%"}'` $'\n'\
 $'#Last boot:' `who | awk '{print $3 " " $4}'` $'\n'\
@@ -171,4 +171,68 @@ sudo chmod 700 /bin/monitoring.sh
 Vérifier le status de Cron
 ```
 sudo systemctl status cron.service 
+```
+Lancer Cron
+```
+sudo systemctl enable cron.service
+```
+
+# Commande utile
+
+Changer le mot de passe
+```sh
+sudo passwd USERNAME
+```
+
+Voir le nom de notre machine
+```sh
+hostname
+```
+
+Changer le nom de notre machine
+```sh
+sudo hostnamectl set-hostname HOSTNAME
+```
+
+Voir les informations de mot de passe d'un compte
+```sh
+sudo chage USERNAME -l
+```
+Changer les informations de mot de passe d'un compte
+```sh
+sudo chage USERNAME
+```
+
+Ajouter un utilisateur
+```sh
+sudo useradd USERNAME
+```
+Definir un mot de passe a un utilisateur
+```sh
+sudo passwd USERNAME
+```
+Supprimer un utilisateur
+```sh
+sudo deluser USERNAME
+```
+
+Creer un groupe
+```sh
+sudo groupadd GROUP_NAME
+```
+Ajouter un utilisateur a un groupe
+```sh
+sudo adduser USERNAME GROUP_NAME
+```
+Supprimer un utilisateur d'un groupe
+```sh
+sudo deluser USERNAME GROUP_NAME
+```
+Voir les groupes
+```sh
+groups
+```
+Voir tous les groupes
+```sh
+getent group
 ```
