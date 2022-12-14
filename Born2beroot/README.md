@@ -12,9 +12,10 @@ pass : 26R00tsalut
 
 pass : edecosteedecoste
 
-# commamdes utilisées
 
-## instalations
+# Commamdes utilisées
+
+## Instalations
 
 Instalation de Sudo
 
@@ -40,7 +41,8 @@ Instalation de libpam-pwquality
 apt install libpam-pwquality
 ```
 
-## Configuration
+
+# Configuration
 
 ## SSH
 Changement de port du SSH
@@ -98,7 +100,7 @@ Lancement de UFW au démarrage
 sudo systemctl enable ufw
 ```
 
-## libpam-pwquality
+## Libpam-pwquality
 
 Changement des règles d'expiration
 fichier : /etc/login.defs
@@ -118,6 +120,7 @@ Changement du mot de passe de "root"
 sudo passwd root
 ```
 
+
 # Création des groupes
 Création du groupe user42
 ```
@@ -128,6 +131,7 @@ Ajout de l'utilisateur "edecoste" au groupe "user42"
 ```
 sudo adduser edecoste user42 
 ```
+
 
 # Script 
 
