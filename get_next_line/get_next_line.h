@@ -6,7 +6,7 @@
 /*   By: edecoste <edecoste@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:29:20 by edecoste          #+#    #+#             */
-/*   Updated: 2022/12/08 11:55:51 by edecoste         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:07:49 by edecoste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 166
+#  define BUFFER_SIZE 1028
 # endif
 
 # include <unistd.h>

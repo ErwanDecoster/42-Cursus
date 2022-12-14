@@ -6,7 +6,7 @@
 /*   By: edecoste <edecoste@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:29:22 by edecoste          #+#    #+#             */
-/*   Updated: 2022/12/08 11:52:43 by edecoste         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:58:28 by edecoste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*ft_get_right(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[1024];
+	static char	*buffer[10240];
 	char		*line;
 
 	if (fd == -1 || BUFFER_SIZE <= 0)
