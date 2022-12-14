@@ -1,18 +1,20 @@
 ## Login VM
 
 user : edecoste
+
 pass : 26Erwan@gmal
 
 user : root
+
 pass : 26R00tsalut
 
 ## Clé chiffrage disque
 
 pass : edecosteedecoste
 
-## commamdes utilisées
+# commamdes utilisées
 
-# instalations
+## instalations
 
 Instalation de Sudo
 
@@ -38,10 +40,11 @@ Instalation de libpam-pwquality
 apt install libpam-pwquality
 ```
 
-# Configaration
+## Configuration
 
-# SSH
-Chamgement de port du SSH
+## SSH
+Changement de port du SSH
+
 fichier : etc/ssh/sshd_config
 ```
 port 4242
@@ -51,11 +54,11 @@ fichier : etc/ssh/ssh_config
 port 4242
 ```
 
-Redemarage du SSH
+Redémarrage du SSH
 ```bach
 /etc/init.d/ssh reload
 ```
-Verification du status du SSH
+Vérification du status du SSH
 ```bach
 systemctl status sshd
 ```
@@ -64,7 +67,7 @@ Connection au SSH
 ssh edecoste@172.0.0.1 -p 4242
 ```
 
-# Sudo
+## Sudo
 Configuration de Sudo
 ```
 sudo visudo
@@ -78,7 +81,7 @@ Defaults        iolog_dir="/var/log/sudo"
 Defaults        logfile="/var/log/sudo.log"
 ```
 
-# UFW
+## UFW
 
 Activation du firewall
 ```
@@ -90,33 +93,33 @@ Ouverture du port 4242
 sudo ufw allow 4242
 ```
 
-Lancement de UFW au demarage
+Lancement de UFW au démarrage
 ```
 sudo systemctl enable ufw
 ```
 
-# libpam-pwquality
+## libpam-pwquality
 
-Chamgement des regles d'expiration
+Changement des règles d'expiration
 fichier : /etc/login.defs
 ```
 PASS_MAX_DAYS	30
 PASS_MIN_DAYS	2
 PASS_WARM_AGE	7
 ```
-Chamgement des regles de complexiter
+Changement des règles de complexité
 fichier : /etc/pam.d/common-password
 ```
 password	requisite	pam_pwquality.so retry=3 minlen=10 ucredit=-1 dcredit=-1 maxrepeat=3 difok=7 reject_username enforce_for_root
 ```
 
-Chamgement du mot de passe de "root"
+Changement du mot de passe de "root"
 ```
 sudo passwd root
 ```
 
-## Creation des groupes
-Creation du groupe user42
+# Création des groupes
+Création du groupe user42
 ```
 sudo groupadd user42 
 ```
@@ -126,9 +129,10 @@ Ajout de l'utilisateur "edecoste" au groupe "user42"
 sudo adduser edecoste user42 
 ```
 
-## Script 
+# Script 
 
-Creation du script
+Création du script
+
 fichier : /bin/monitoring.sh 
 ```sh
 #!/bin/bash
@@ -146,7 +150,7 @@ $'#Network:' `ip a | grep -v 127 | grep "inet " | awk '{print $2}' | awk -F "/" 
 $'#Sudo:' `journalctl -q _COMM=sudo | grep COMMAND | wc -l` $'\n'\
 ```
 
-Creation d'une tache cron
+Création d'une tâche Cron
 ```
 sudo crontab -e
 ```
@@ -160,7 +164,7 @@ sudo chown root:root /bin/monitoring.sh
 sudo chmod 700 /bin/monitoring.sh
 ```
 
-Verifier le status de Cron
+Vérifier le status de Cron
 ```
 sudo systemctl status cron.service 
 ```
