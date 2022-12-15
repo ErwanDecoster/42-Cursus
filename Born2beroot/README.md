@@ -66,7 +66,7 @@ systemctl status sshd
 ```
 Connection au SSH
 ```bach
-ssh edecoste@172.0.0.1 -p 4242
+ssh edecoste@127.0.0.1 -p 4242
 ```
 
 ## Sudo
