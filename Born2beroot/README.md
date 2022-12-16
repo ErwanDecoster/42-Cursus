@@ -76,11 +76,12 @@ sudo visudo
 ```
 Ajout des lignes suivante
 ```
+Defaults		secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 Defaults        badpass_message="Wrong password"
 Defaults        requiretty
 Defaults        log_input, log_output
 Defaults        iolog_dir="/var/log/sudo"
-Defaults        logfile="/var/log/sudo.log"
+Defaults        logfile="/var/log/sudo/sudo.log"
 ```
 
 ## UFW
@@ -120,6 +121,12 @@ Changement du mot de passe de "root"
 sudo passwd root
 ```
 
+Changement des regles des utilisateurs deja creer
+```
+sudo chage -m 2 -M 30 edecoste
+sudo chage -m 2 -M 30 root
+```
+
 
 # Création des groupes
 Création du groupe user42
@@ -148,10 +155,10 @@ $'#Disk Usage:' `df -h --total | grep total | awk '{print $3 "/" $2 "  (" $5 ")"
 $'#CPU load:' `top -bn1 | sed -n 3p | awk '{print $2 "%"}'` $'\n'\
 $'#Last boot:' `who | awk '{print $3 " " $4}'` $'\n'\
 $'#LVM use:' `lsblk | grep lvm | wc -l | awk '{if ($1) print "yes"; else print "no"}'` $'\n'\
-$'#Connexions TCP:' `ss -tunlp | grep LISTEN | wc -l` $'\n'\
+$'#Connexions TCP:' `ss -tunlp | grep LISTEN | wc -l` $'ESTABLISHED\n'\
 $'#User log:' `who | wc -l` $'\n'\
 $'#Network:' `ip a | grep -v 127 | grep "inet " | awk '{print $2}' | awk -F "/" '{print "IP " $1}' ` `ip a | grep ether | awk '{printf "("$2")"}'`  $'\n'\
-$'#Sudo:' `journalctl -q _COMM=sudo | grep COMMAND | wc -l` $'\n'\
+$'#Sudo:' `journalctl -q _COMM=sudo | grep COMMAND | wc -l` $'cmd\n'\
 ```
 
 Création d'une tâche Cron
@@ -193,6 +200,12 @@ Changer le nom de notre machine
 ```sh
 sudo hostnamectl set-hostname HOSTNAME
 ```
+et 
+
+fichier : /etc/hostname
+```
+HOSTNAME
+```
 
 Voir les informations de mot de passe d'un compte
 ```sh
@@ -205,11 +218,7 @@ sudo chage USERNAME
 
 Ajouter un utilisateur
 ```sh
-sudo useradd USERNAME
-```
-Definir un mot de passe a un utilisateur
-```sh
-sudo passwd USERNAME
+sudo adduser USERNAME
 ```
 Supprimer un utilisateur
 ```sh
@@ -235,4 +244,17 @@ groups
 Voir tous les groupes
 ```sh
 getent group
+```
+
+Ajouter unw règle UFW
+```
+sudo ufw allow PORT_NUMBER
+```
+Voir les règles UFW
+```
+sudo ufw status
+```
+Supprimer une règle UFW
+```
+sudo ufw delete allow PORT_NUMBER
 ```
