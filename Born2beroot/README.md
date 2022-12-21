@@ -158,7 +158,7 @@ $'#LVM use:' `lsblk | grep lvm | wc -l | awk '{if ($1) print "yes"; else print "
 $'#Connexions TCP:' `ss -tunlp | grep LISTEN | wc -l` $'ESTABLISHED\n'\
 $'#User log:' `who | wc -l` $'\n'\
 $'#Network:' `ip a | grep -v 127 | grep "inet " | awk '{print $2}' | awk -F "/" '{print "IP " $1}' ` `ip a | grep ether | awk '{printf "("$2")"}'`  $'\n'\
-$'#Sudo:' `journalctl -q _COMM=sudo | grep COMMAND | wc -l` $'cmd\n'\
+$'#Sudo:' `journalctl -q _COMM=sudo | grep COMMAND | wc -l` $'cmd' $'\n'\
 ```
 
 Création d'une tâche Cron
